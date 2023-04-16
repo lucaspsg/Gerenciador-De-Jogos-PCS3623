@@ -21,3 +21,6 @@ para acessar uma interface grafica via browser use
 docker run --name phpmyadmin -d --link gerenciador-jogos:db -p 8081:80 phpmyadmin/phpmyadmin
 ```
 para acessar a interface grafica, basta colocar localhost:8081 no browser
+
+user = root 
+senha = 123
