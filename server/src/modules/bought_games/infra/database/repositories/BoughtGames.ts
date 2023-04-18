@@ -1,6 +1,5 @@
 import IBoughtGamesRepository from '@modules/bought_games/repositories/IBoughtGamesRepository';
 import ICreateBoughtGameDTO from '@modules/bought_games/dtos/ICreateBoughtGameDTO';
-import IFindMyGamesDTO from '@modules/bought_games/dtos/IFindMyGamesDTO';
 
 
 import BoughtGameSchema from '@modules/bought_games/infra/database/schemas/BoughtGames';
@@ -26,10 +25,9 @@ export default class BoughtGamesRepository implements IBoughtGamesRepository {
     }
 
 
-    public async findBoughtByMe(data: IFindMyGamesDTO): Promise<BoughtGameSchema[]> {
-      const {conta_id, jogo_id} = data;
+    public async findBoughtByMe(conta_id: string): Promise<BoughtGameSchema[]> {
       const conn = await this.mariadb.getConnection();
-      const game = await conn.query(`SELECT * FROM jogo_comprado WHERE conta_id = "${conta_id} AND jogo_id = "${jogo_id}";`);
+      const game = await conn.query(`SELECT * FROM jogo_comprado WHERE conta_id = "${conta_id}";`);
       conn.end();
       return game;
     }

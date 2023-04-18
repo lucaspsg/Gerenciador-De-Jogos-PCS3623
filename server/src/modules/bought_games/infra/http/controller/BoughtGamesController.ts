@@ -29,12 +29,11 @@ export default class GamesController {
   public async findMyGames(req: Request, res: Response): Promise<Response> {
     const {
       conta_id,
-      jogo_id
-    } = req.body;
+    } = req.params
 
     const findGame = new FindBoughtByMeService();
 
-    const game = await findGame.execute({conta_id, jogo_id});
+    const game = await findGame.execute(conta_id);
 
     return res.status(201).json(game);
   }
