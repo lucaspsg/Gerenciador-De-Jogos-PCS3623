@@ -1,0 +1,8 @@
+conta_id;nome_conta;email;senha;carteira;desenvolvedor;imagem_perfil
+1001;Valve;valve.corp@valve.com;pwvalve;1000000000.00;true;img-perf
+1002;From Software;from@software.com;pwfromsoftware;7000.00;true;img-perf
+1003;Rockstar Games;rockstar@games.com;pwrockstar.com;10000.00;true;img-perf
+1004;Toby Fox;toby@fox.com;pwtobyfox;1000.00;true;img-perf
+1005;Santa Monica Studio;santa.monica@studio.com;pwsantamonica;5000.00;true;img-perf
+1006;CD Project Red;cd.project@red.com;pwcdpr;15000.00;true;img-perf
+1007;RobTop Games;robtop@games.com;pwgd;420.69;true;img-perf

@@ -1,22 +1,23 @@
 import AppError from '@shared/errors/AppError';
 
-import UserSchema from '@modules/users/infra/database/schemas/Users'
-import UserRepository from '@modules/users/infra/database/repositories/Users'
-import IUsersRepository from '../repositories/IUsersRepository';
+import FriendshipSchema from '@modules/friendships/infra/database/schemas/Friendships'
+import FriendshipRepository from '@modules/friendships/infra/database/repositories/Friendships'
+import IFriendshipsRepository from '../repositories/IFriendshipsRepository';
 
 interface IRequest {
-    id: string;
+    user_a_id: string;
+    user_b_id: string;
 }
 
 export default class FindByIdService{
 
-    private userRepository : IUsersRepository = new UserRepository();
+    private friendshipRepository : IFriendshipsRepository = new FriendshipRepository();
 
-    public async execute({id}: IRequest): Promise<UserSchema | null> {
-        const user = await this.userRepository.findById(id);
+    public async execute({user_a_id, user_b_id}: IRequest): Promise<FriendshipSchema | null> {
+        const friendship = await this.friendshipRepository.findById({user_a_id, user_b_id});
 
-        if (!user) throw new AppError('User with the provided id does not exist');
+        if (!friendship) throw new AppError('Friendship with the provided ids does not exist');
 
-        return user;
+        return friendship;
     }
 }

@@ -1,3 +1,5 @@
+import { randomUUID } from 'crypto'
+
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 
@@ -33,8 +35,16 @@ export default class UsersRepository implements IUsersRepository {
   }
 
   public async create(data: ICreateUserDTO): Promise<UserSchema> {
+    const {email, username, password, isDeveloper, profile_pic} = data;
+    const id = randomUUID();
     const conn = await this.mariadb.getConnection();
-    const user = await this.mariadb.query("INSERT BLABL");
+    const user = await this.mariadb.query(
+            `INSERT INTO conta
+            (conta_id, nome_conta, email, senha, carteira, desenvolvedor, imagem_perfil)
+            VALUES
+            (${id}, ${username}, ${email}, ${password}, 0, ${isDeveloper}, ${profile_pic});
+            `
+        );
     conn.end();
     return user;
   }

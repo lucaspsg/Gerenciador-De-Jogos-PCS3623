@@ -10,6 +10,7 @@ export default class UserController {
             username,
             email,
             password,
+            isDeveloper,
             profile_pic,
         } = req.body;
 
@@ -19,6 +20,7 @@ export default class UserController {
             username,
             email,
             password,
+            isDeveloper,
             profile_pic,
         });
 
