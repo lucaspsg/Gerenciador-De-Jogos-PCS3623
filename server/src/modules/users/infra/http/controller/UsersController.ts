@@ -5,57 +5,53 @@ import FindByIdService from '@modules/users/services/FindByIdService';
 import FindByUsernameService from '@modules/users/services/FindByUsernameService';
 
 export default class UserController {
-    public async create(req: Request, res: Response): Promise<Response> {
-        const {
-            username,
-            email,
-            password,
-            isDeveloper,
-            profile_pic,
-        } = req.body;
+  public async create(req: Request, res: Response): Promise<Response> {
+    const {
+      username,
+      email,
+      password,
+      isDeveloper,
+      profile_pic,
+    } = req.body;
 
-        const createUser = new CreateUserService();
+    const createUser = new CreateUserService();
 
-        const user = await createUser.execute({
-            username,
-            email,
-            password,
-            isDeveloper,
-            profile_pic,
-        });
+    await createUser.execute({
+      username,
+      email,
+      password,
+      isDeveloper,
+      profile_pic,
+    });
+    return res.status(201).json();
+  }
 
-        user.password = '###';
+  public async findByEmail(req: Request, res: Response): Promise<Response> {
+    const {
+      id,
+    } = req.params;
 
-        return res.status(201).json(user);
-    }
+    const findUser = new FindByIdService();
 
-    public async findByEmail(req: Request, res: Response): Promise<Response> {
-        const {
-            id
-        } = req.params;
+    const user = await findUser.execute({
+      id,
+    });
 
-        const findUser = new FindByIdService();
+    return res.status(201).json(user);
+  }
 
-        const user = await findUser.execute({
-            id,
-        });
+  public async findByUsername(req: Request, res: Response): Promise<Response> {
+    const {
+      username,
+    } = req.params;
 
-        console.log(user);
-        return res.status(201).json(user);
-    }
+    const findUser = new FindByUsernameService();
 
-    public async findByUsername(req: Request, res: Response): Promise<Response> {
-        const {
-            username
-        } = req.params;
+    const user = await findUser.execute({
+      username,
+    });
 
-        const findUser = new FindByUsernameService();
-
-        const user = await findUser.execute({
-            username,
-        });
-
-        console.log(user);
-        return res.status(201).json(user);
-    }
+    console.log(user);
+    return res.status(201).json(user);
+  }
 }

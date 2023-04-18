@@ -1,11 +1,11 @@
+import UserSchema from '@modules/users/infra/database/schemas/Users';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
-import UserSchema from '@modules/users/infra/database/schemas/Users'
 
 interface IUsersRepository {
-  findByEmail(email: string): Promise<UserSchema | null>;
+  findByEmail(email: string): Promise<UserSchema[]>;
   findById(id: string): Promise<UserSchema | null>;
   findByUsername(username: string): Promise<UserSchema | null>;
-  create(data: ICreateUserDTO): Promise<UserSchema>;
+  create(data: ICreateUserDTO): Promise<void>;
 }
 
 export default IUsersRepository;

@@ -10,5 +10,5 @@ interface Games {
   description: string;
   image: string;
 }
- 
+
 export default Games;

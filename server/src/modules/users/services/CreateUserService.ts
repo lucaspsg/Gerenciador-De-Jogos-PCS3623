@@ -1,12 +1,9 @@
 import { hash } from 'bcryptjs';
 
-import UserSchema from "@modules/users/infra/database/schemas/Users";
-import UserRepository from "@modules/users/infra/database/repositories/Users";
-import IUsersRepository from "@modules/users/repositories/IUsersRepository";
-
+import UserRepository from '@modules/users/infra/database/repositories/Users';
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
 import AppError from '@shared/errors/AppError';
-
 
 interface IRequest {
     username: string;
@@ -17,26 +14,23 @@ interface IRequest {
 }
 
 export default class CreateUserService {
-
     private userRepository : IUsersRepository = new UserRepository();
 
     public async execute({
-        username, email, password, isDeveloper, profile_pic, 
-    }: IRequest): Promise<UserSchema> {
-        const userAlreadyExists = await this.userRepository.findByEmail(email);
+      username, email, password, isDeveloper, profile_pic,
+    }: IRequest): Promise<void> {
+      const userAlreadyExists = (await this.userRepository.findByEmail(email))[0];
 
-        if (userAlreadyExists) throw new AppError('User with same name, phone or cpf already exists');
+      if (userAlreadyExists) throw new AppError('User with same name, phone or cpf already exists');
 
-        const hashedPassword = await hash(password, 8);
+      const hashedPassword = await hash(password, 8);
 
-        const user = this.userRepository.create({
-            username,
-            email: email.toLowerCase(),
-            password: hashedPassword,
-            isDeveloper,
-            profile_pic,
-        });
-
-        return user;
+      await this.userRepository.create({
+        username,
+        email: email.toLowerCase(),
+        password: hashedPassword,
+        isDeveloper,
+        profile_pic,
+      });
     }
 }

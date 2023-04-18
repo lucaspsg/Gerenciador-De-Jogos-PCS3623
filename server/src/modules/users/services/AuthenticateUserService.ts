@@ -4,8 +4,8 @@ import { compare } from 'bcryptjs';
 import AppError from '@shared/errors/AppError';
 import authConfig from '@config/auth';
 
-import UserSchema from '@modules/users/infra/database/schemas/Users'
-import UserRepository from '@modules/users/infra/database/repositories/Users'
+import UserSchema from '@modules/users/infra/database/schemas/Users';
+import UserRepository from '@modules/users/infra/database/repositories/Users';
 import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
@@ -14,32 +14,31 @@ interface IRequest {
 }
 
 export default class AuthenticateUserService {
-
     private userRepository : IUsersRepository = new UserRepository();
 
     public async execute({ email, password }: IRequest): Promise<{ user: UserSchema, token: string }> {
-        const user = await this.userRepository.findByEmail(email);
+      const user = (await this.userRepository.findByEmail(email))[0];
 
-        if (!user) {
-            throw new AppError('Incorrect email/password combination', 401);
-        }
+      if (!user) {
+        throw new AppError('Incorrect email/password combination', 401);
+      }
 
-        const passwordMatched = await compare(password, user.password);
+      const passwordMatched = await compare(password, user.senha);
 
-        if (!passwordMatched) {
-            throw new AppError('Incorrect email/password combination', 401);
-        }
+      if (!passwordMatched) {
+        throw new AppError('Incorrect email/password combination', 401);
+      }
 
-        const { secret, expiresIn } = authConfig.jwt;
+      const { secret, expiresIn } = authConfig.jwt;
 
-        const token = sign({}, secret, {
-            subject: user.id,
-            expiresIn,
-        });
+      const token = sign({}, secret, {
+        subject: user.conta_id,
+        expiresIn,
+      });
 
-        return {
-            user,
-            token,
-        };
+      return {
+        user,
+        token,
+      };
     }
 }

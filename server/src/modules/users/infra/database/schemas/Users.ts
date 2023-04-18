@@ -1,13 +1,13 @@
 interface Users {
-        id: string;
-        name: string;
+        conta_id: string;
+        nome_conta: string;
         email: string;
-        password: string;
-        isDeveloper: boolean;
-        profile_pic: string;
-        wallet: number;
+        senha: string;
+        desenvolvedor: boolean;
+        imagem_perfil: string;
+        carteira: number;
         created_at: string;
         updated_at: string;
     }
- 
+
 export default Users;

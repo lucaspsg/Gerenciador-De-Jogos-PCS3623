@@ -9,7 +9,7 @@ export default class SessionsController {
       password,
     } = req.body;
 
-    const authenticateUser = new AuthenticateUserService()
+    const authenticateUser = new AuthenticateUserService();
 
     const { user, token } = await authenticateUser.execute({ email, password });
 
