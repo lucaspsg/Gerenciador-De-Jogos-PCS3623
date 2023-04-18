@@ -14,12 +14,14 @@ export default class GamesRepository implements IGamesRepository {
     }
 
     public async create(data: ICreateGameDTO): Promise<void> {
-      const {nome_jogo, preco, tamanho, dev_id, data_lanc, categoria, descricao, capa} = data;
+      const {
+        nome_jogo, preco, tamanho, dev_id, data_lanc, categoria, descricao, capa,
+      } = data;
       const id = uuidv4();
       const conn = await this.mariadb.getConnection();
       await this.mariadb.query(
         `INSERT INTO jogo (game_id, nome_jogo, preco, tamanho, dev_id, data_lanc, categoria, quant_downloads, descricao, capa)
-         VALUES (${id}, ${nome_jogo}, ${preco}, ${tamanho}, ${dev_id}, ${data_lanc}, ${categoria}, 0, ${descricao}, ${capa});`,
+         VALUES ('${id}', '${nome_jogo}', ${preco}, ${tamanho}, '${dev_id}', '${data_lanc}', '${categoria}', 0, '${descricao}', '${capa}');`,
       );
       conn.end();
     }
@@ -28,6 +30,7 @@ export default class GamesRepository implements IGamesRepository {
       const conn = await this.mariadb.getConnection();
       const game = await conn.query(`SELECT * FROM jogo WHERE nome_jogo LIKE "%${name}%";`);
       conn.end();
+      console.log(name);
       return game;
     }
 }

@@ -16,7 +16,7 @@ interface IRequest {
 export default class AuthenticateUserService {
     private userRepository : IUsersRepository = new UserRepository();
 
-    public async execute({ email, senha}: IRequest): Promise<{ user: UserSchema, token: string }> {
+    public async execute({ email, senha }: IRequest): Promise<{ user: UserSchema, token: string }> {
       const user = (await this.userRepository.findByEmail(email))[0];
 
       if (!user) {

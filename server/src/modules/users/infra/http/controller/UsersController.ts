@@ -26,7 +26,7 @@ export default class UserController {
     return res.status(201).json();
   }
 
-  public async findByEmail(req: Request, res: Response): Promise<Response> {
+  public async findById(req: Request, res: Response): Promise<Response> {
     const {
       id,
     } = req.params;
@@ -34,7 +34,7 @@ export default class UserController {
     const findUser = new FindByIdService();
 
     const user = await findUser.execute({
-      id,
+      conta_id: id,
     });
 
     return res.status(201).json(user);
@@ -48,10 +48,9 @@ export default class UserController {
     const findUser = new FindByUsernameService();
 
     const user = await findUser.execute({
-      username,
+      nome_conta: username,
     });
 
-    console.log(user);
     return res.status(201).json(user);
   }
 }

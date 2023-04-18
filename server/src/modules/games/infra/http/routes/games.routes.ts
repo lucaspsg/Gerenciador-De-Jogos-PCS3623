@@ -7,6 +7,6 @@ const gamesRoutes = Router();
 const gamesController = new GamesController();
 
 gamesRoutes.post('/create', gamesController.create);
-gamesRoutes.get('/findByName/:name', gamesController.findByName);
+gamesRoutes.get('/findByName/', gamesController.findByName);
 
 export default gamesRoutes;
