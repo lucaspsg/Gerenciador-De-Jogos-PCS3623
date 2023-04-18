@@ -3,6 +3,7 @@ import ICreateGameDTO from '../dtos/ICreateGameDTO';
 
 interface IUsersRepository {
   findByName(nome_jogo: string): Promise<GameSchema[]>;
+  findDevelopedByMe(dev_id: string): Promise<GameSchema[]>;
   create(data: ICreateGameDTO): Promise<void>;
 }
 

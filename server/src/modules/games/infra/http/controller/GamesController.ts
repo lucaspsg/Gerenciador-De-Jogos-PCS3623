@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import CreateGameService from '@modules/games/services/CreateGameService';
 import FindByNameService from '@modules/games/services/FindByNameService';
+import FindDevelopedByMeService from '@modules/games/services/FindDevelopedByMeService';
 
 export default class GamesController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -42,6 +43,18 @@ export default class GamesController {
     const game = await findGame.execute({
       nome_jogo: nome_jogo as string,
     });
+
+    return res.status(201).json(game);
+  }
+
+  public async findMyDev(req: Request, res: Response): Promise<Response> {
+    const {
+      dev_id,
+    } = req.params;
+
+    const findGame = new FindDevelopedByMeService();
+
+    const game = await findGame.execute(dev_id);
 
     return res.status(201).json(game);
   }

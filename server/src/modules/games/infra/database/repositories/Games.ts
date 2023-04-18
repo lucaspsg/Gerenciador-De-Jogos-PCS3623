@@ -33,4 +33,12 @@ export default class GamesRepository implements IGamesRepository {
       console.log(name);
       return game;
     }
+
+    public async findDevelopedByMe(dev_id: string): Promise<GameSchema[]> {
+      const conn = await this.mariadb.getConnection();
+      const game = await conn.query(`SELECT * FROM jogo WHERE dev_id = "${dev_id};`);
+      conn.end();
+      return game;
+    }
+
 }
