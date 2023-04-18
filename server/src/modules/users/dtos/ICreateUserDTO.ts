@@ -1,9 +1,9 @@
 interface ICreateUserDTO {
-  username: string;
+  nome_conta: string;
   email: string;
-  password: string;
-  isDeveloper: boolean;
-  profile_pic: string;
+  senha: string;
+  desenvolvedor: boolean;
+  imagem: string;
 }
 
 export default ICreateUserDTO;

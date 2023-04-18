@@ -7,21 +7,21 @@ import FindByUsernameService from '@modules/users/services/FindByUsernameService
 export default class UserController {
   public async create(req: Request, res: Response): Promise<Response> {
     const {
-      username,
+      nome_conta,
       email,
-      password,
-      isDeveloper,
-      profile_pic,
+      senha,
+      desenvolvedor,
+      imagem,
     } = req.body;
 
     const createUser = new CreateUserService();
 
     await createUser.execute({
-      username,
+      nome_conta,
       email,
-      password,
-      isDeveloper,
-      profile_pic,
+      senha,
+      desenvolvedor,
+      imagem,
     });
     return res.status(201).json();
   }

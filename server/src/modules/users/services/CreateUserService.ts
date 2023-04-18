@@ -6,31 +6,31 @@ import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import AppError from '@shared/errors/AppError';
 
 interface IRequest {
-    username: string;
+    nome_conta: string;
     email: string;
-    password: string;
-    isDeveloper: boolean;
-    profile_pic: string;
+    senha: string;
+    desenvolvedor: boolean;
+    imagem: string;
 }
 
 export default class CreateUserService {
     private userRepository : IUsersRepository = new UserRepository();
 
     public async execute({
-      username, email, password, isDeveloper, profile_pic,
+      nome_conta, email, senha, desenvolvedor, imagem,
     }: IRequest): Promise<void> {
       const userAlreadyExists = (await this.userRepository.findByEmail(email))[0];
 
       if (userAlreadyExists) throw new AppError('User with same name, phone or cpf already exists');
 
-      const hashedPassword = await hash(password, 8);
+      const hashedPassword = await hash(senha, 8);
 
       await this.userRepository.create({
-        username,
+        nome_conta,
         email: email.toLowerCase(),
-        password: hashedPassword,
-        isDeveloper,
-        profile_pic,
+        senha: hashedPassword,
+        desenvolvedor,
+        imagem,
       });
     }
 }

@@ -3,15 +3,15 @@ import UserRepository from '@modules/users/infra/database/repositories/Users'
 import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
-    username: string;
+    nome_conta: string;
 }
 
 export default class FindByUsernameService {
 
     private userRepository : IUsersRepository = new UserRepository();
 
-    public async execute({username}: IRequest): Promise<UserSchema | null> {
-        const user = await this.userRepository.findByUsername(username);
+    public async execute({nome_conta}: IRequest): Promise<UserSchema | null> {
+        const user = await this.userRepository.findByUsername(nome_conta);
 
         return user;
     }

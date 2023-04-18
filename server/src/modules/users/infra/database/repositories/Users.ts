@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 
@@ -25,21 +27,21 @@ export default class UsersRepository implements IUsersRepository {
       return user;
     }
 
-    public async findByUsername(username: string): Promise<UserSchema | null> {
+    public async findByUsername(nome_conta: string): Promise<UserSchema | null> {
       const conn = await this.mariadb.getConnection();
-      const user = await conn.query(`SELECT * FROM conta WHERE username LIKE "%${username}%";`);
+      const user = await conn.query(`SELECT * FROM conta WHERE nome_conta LIKE "%${nome_conta}%";`);
       conn.end();
       return user;
     }
 
     public async create(data: ICreateUserDTO): Promise<void> {
       const {
-        email, username, password, isDeveloper, profile_pic,
+        email, nome_conta, senha, desenvolvedor, imagem,
       } = data;
-      const id = '1012';
+      const id = uuidv4();
       const conn = await this.mariadb.getConnection();
       await this.mariadb.query(
-        `INSERT INTO conta (conta_id, nome_conta, email, senha, carteira, desenvolvedor, imagem_perfil) VALUES ('${id}', '${username}', '${email}', '${password}', 0, ${isDeveloper}, '${profile_pic}');`,
+        `INSERT INTO conta (conta_id, nome_conta, email, senha, carteira, desenvolvedor, imagem_perfil) VALUES ('${id}', '${nome_conta}', '${email}', '${senha}', 0, ${desenvolvedor}, '${imagem}');`,
       );
       conn.end();
     }

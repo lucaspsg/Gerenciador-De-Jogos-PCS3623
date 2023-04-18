@@ -10,20 +10,20 @@ import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
     email: string;
-    password: string;
+    senha: string;
 }
 
 export default class AuthenticateUserService {
     private userRepository : IUsersRepository = new UserRepository();
 
-    public async execute({ email, password }: IRequest): Promise<{ user: UserSchema, token: string }> {
+    public async execute({ email, senha}: IRequest): Promise<{ user: UserSchema, token: string }> {
       const user = (await this.userRepository.findByEmail(email))[0];
 
       if (!user) {
         throw new AppError('Incorrect email/password combination', 401);
       }
 
-      const passwordMatched = await compare(password, user.senha);
+      const passwordMatched = await compare(senha, user.senha);
 
       if (!passwordMatched) {
         throw new AppError('Incorrect email/password combination', 401);

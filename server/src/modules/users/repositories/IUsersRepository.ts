@@ -3,8 +3,8 @@ import ICreateUserDTO from '../dtos/ICreateUserDTO';
 
 interface IUsersRepository {
   findByEmail(email: string): Promise<UserSchema[]>;
-  findById(id: string): Promise<UserSchema | null>;
-  findByUsername(username: string): Promise<UserSchema | null>;
+  findById(conta_id: string): Promise<UserSchema | null>;
+  findByUsername(name: string): Promise<UserSchema | null>;
   create(data: ICreateUserDTO): Promise<void>;
 }
 
