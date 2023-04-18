@@ -22,7 +22,7 @@ export default class UsersRepository implements IUsersRepository {
 
     public async findById(id: string): Promise<UserSchema | null> {
       const conn = await this.mariadb.getConnection();
-      const user = await conn.query(`SELECT * FROM conta WHERE id = "${id}";`);
+      const user = await conn.query(`SELECT * FROM conta WHERE conta_id = "${id}";`);
       conn.end();
       return user;
     }
