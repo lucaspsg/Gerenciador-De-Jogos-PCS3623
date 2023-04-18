@@ -1,5 +1,4 @@
 import { hash } from 'bcryptjs';
-import path from 'path';
 
 import UserSchema from "@modules/users/infra/database/schemas/Users";
 import UserRepository from "@modules/users/infra/database/repositories/Users";

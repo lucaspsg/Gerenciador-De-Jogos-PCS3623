@@ -25,6 +25,13 @@ export default class UsersRepository implements IUsersRepository {
     return user;
   }
 
+  public async findByUsername(username: string): Promise<UserSchema | null> {
+    const conn = await this.mariadb.getConnection();
+    const user = await conn.query(`SELECT * FROM users WHERE username LIKE "%${username}%";`);
+    conn.end();
+    return user;
+  }
+
   public async create(data: ICreateUserDTO): Promise<UserSchema> {
     const conn = await this.mariadb.getConnection();
     const user = await this.mariadb.query("INSERT BLABL");

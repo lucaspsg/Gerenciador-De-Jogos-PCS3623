@@ -15,6 +15,8 @@ export default class FindByIdService{
     public async execute({id}: IRequest): Promise<UserSchema | null> {
         const user = await this.userRepository.findById(id);
 
+        if (!user) throw new AppError('User with the provided id does not exist');
+
         return user;
     }
 }

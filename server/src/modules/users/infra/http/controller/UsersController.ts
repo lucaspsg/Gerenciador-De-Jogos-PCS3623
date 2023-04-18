@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { container } from 'tsyringe';
 
 import CreateUserService from '@modules/users/services/CreateUserService';
 import FindByIdService from '@modules/users/services/FindByIdService';
+import FindByUsernameService from '@modules/users/services/FindByUsernameService';
 
 export default class UserController {
     public async create(req: Request, res: Response): Promise<Response> {
@@ -27,7 +27,7 @@ export default class UserController {
         return res.status(201).json(user);
     }
 
-    public async find(req: Request, res: Response): Promise<Response> {
+    public async findByEmail(req: Request, res: Response): Promise<Response> {
         const {
             id
         } = req.params;
@@ -36,6 +36,21 @@ export default class UserController {
 
         const user = await findUser.execute({
             id,
+        });
+
+        console.log(user);
+        return res.status(201).json(user);
+    }
+
+    public async findByUsername(req: Request, res: Response): Promise<Response> {
+        const {
+            username
+        } = req.params;
+
+        const findUser = new FindByUsernameService();
+
+        const user = await findUser.execute({
+            username,
         });
 
         console.log(user);
