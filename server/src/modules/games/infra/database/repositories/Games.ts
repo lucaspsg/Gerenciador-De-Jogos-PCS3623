@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import IGamesRepository from '@modules/games/repositories/IGamesRepository';
 import ICreateGameDTO from '@modules/games/dtos/ICreateGameDTO';
 
@@ -11,16 +13,20 @@ export default class GamesRepository implements IGamesRepository {
       this.mariadb = MariaDB;
     }
 
-    public async create(data: ICreateGameDTO): Promise<GameSchema> {
+    public async create(data: ICreateGameDTO): Promise<void> {
+      const {nome_jogo, preco, tamanho, dev_id, data_lanc, categoria, descricao, capa} = data;
+      const id = uuidv4();
       const conn = await this.mariadb.getConnection();
-      const game = await this.mariadb.query('INSERT BLABL', data);
+      await this.mariadb.query(
+        `INSERT INTO jogo (game_id, nome_jogo, preco, tamanho, dev_id, data_lanc, categoria, quant_downloads, descricao, capa)
+         VALUES (${id}, ${nome_jogo}, ${preco}, ${tamanho}, ${dev_id}, ${data_lanc}, ${categoria}, 0, ${descricao}, ${capa});`,
+      );
       conn.end();
-      return game;
     }
 
-    public async findByName(name: string): Promise<GameSchema | null> {
+    public async findByName(name: string): Promise<GameSchema[]> {
       const conn = await this.mariadb.getConnection();
-      const game = await conn.query(`SELECT * FROM Jogo WHERE "Nome do Jogo" LIKE "%${name}%";`);
+      const game = await conn.query(`SELECT * FROM jogo WHERE nome_jogo LIKE "%${name}%";`);
       conn.end();
       return game;
     }

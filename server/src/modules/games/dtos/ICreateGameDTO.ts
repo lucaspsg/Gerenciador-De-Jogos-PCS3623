@@ -1,10 +1,12 @@
 interface ICreateGameDTO {
-  name: string;
-  price: number;
-  size: number;
-  launch_date: Date;
-  category: string;
-  image: string;
+  nome_jogo: string;
+  preco: number;
+  tamanho: number;
+  dev_id: string;
+  data_lanc: Date;
+  categoria: string;
+  descricao: string;
+  capa: string;
 }
 
 export default ICreateGameDTO;

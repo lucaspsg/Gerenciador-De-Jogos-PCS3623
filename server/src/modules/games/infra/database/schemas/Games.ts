@@ -1,14 +1,14 @@
 interface Games {
-  id: string;
-  name: string;
-  price: number;
-  size: number;
+  game_id: string;
+  nome_jogo: string;
+  preco: number;
+  tamanho: number;
   dev_id: string;
-  launch_date: Date;
-  category: string;
+  data_lanc: Date;
+  categoria: string;
   download_quant: number;
-  description: string;
-  image: string;
+  descricao: string;
+  capa: string;
 }
 
 export default Games;

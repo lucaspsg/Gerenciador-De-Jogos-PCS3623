@@ -5,5 +5,5 @@ CREATE TABLE conta (
     senha VARCHAR(50) NOT NULL,
     carteira FLOAT NOT NULL,
     desenvolvedor BOOLEAN NOT NULL,
-    imagem_perfil VARCHAR(100)
+    imagem_perfil VARCHAR(300)
 );
