@@ -20,7 +20,7 @@ export default class GamesRepository implements IGamesRepository {
       const id = uuidv4();
       const conn = await this.mariadb.getConnection();
       await this.mariadb.query(
-        `INSERT INTO jogo (game_id, nome_jogo, preco, tamanho, dev_id, data_lanc, categoria, quant_downloads, descricao, capa)
+        `INSERT INTO jogo (jogo_id, nome_jogo, preco, tamanho, dev_id, data_lanc, categoria, quant_downloads, descricao, capa)
          VALUES ('${id}', '${nome_jogo}', ${preco}, ${tamanho}, '${dev_id}', '${data_lanc}', '${categoria}', 0, '${descricao}', '${capa}');`,
       );
       conn.end();
@@ -40,5 +40,4 @@ export default class GamesRepository implements IGamesRepository {
       conn.end();
       return game;
     }
-
 }
